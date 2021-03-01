@@ -43,7 +43,8 @@ class SplashScreenState extends StateMVC<SplashScreen> {
       key: _con.scaffoldKey,
       body: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
+          color: Colors.black,
+          //  Theme.of(context).scaffoldBackgroundColor ,
         ),
         child: Center(
           child: Column(
@@ -58,7 +59,8 @@ class SplashScreenState extends StateMVC<SplashScreen> {
               ),
               SizedBox(height: 50),
               CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).hintColor),
+                valueColor:
+                    AlwaysStoppedAnimation<Color>(Theme.of(context).hintColor),
               ),
             ],
           ),
