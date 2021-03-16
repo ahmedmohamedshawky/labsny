@@ -16,13 +16,17 @@ import '../repository/user_repository.dart' as userRepo;
 ValueNotifier<User> currentUser = new ValueNotifier(User());
 
 Future<User> login(User user) async {
-  final String url = '${GlobalConfiguration().getValue('api_base_url')}login';
+  final String url = 'https://labsny.net/api/login';
   final client = new http.Client();
   final response = await client.post(
     url,
-    headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+    headers: {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.acceptHeader: 'application/json',
+    },
     body: json.encode(user.toMap()),
   );
+  print(response.body);
   if (response.statusCode == 200) {
     setCurrentUser(response.body);
     currentUser.value = User.fromJSON(json.decode(response.body)['data']);
@@ -30,12 +34,18 @@ Future<User> login(User user) async {
     print(CustomTrace(StackTrace.current, message: response.body).toString());
     throw new Exception(response.body);
   }
+  // if (response.statusCode == 200) {
+  //   setCurrentUser(response.body);
+  //   currentUser.value = User.fromJSON(json.decode(response.body)['data']);
+  // } else {
+  //   print(CustomTrace(StackTrace.current, message: response.body).toString());
+  //   throw new Exception(response.body);
+  // }
   return currentUser.value;
 }
 
 Future<User> register(User user) async {
-  final String url =
-      '${GlobalConfiguration().getValue('api_base_url')}register';
+  final String url = 'https://labsny.net/api/register';
   final client = new http.Client();
   var headers = {
     HttpHeaders.contentTypeHeader: 'application/json',
